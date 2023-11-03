@@ -6,7 +6,7 @@ const app = express()
 
 
 
-const home = require("./routes/home")
+const home = require("./src/routes/home")
 // use -> 미들 웨어를 등록해주는 매서드
 app.use("/", home);
 

@@ -5,10 +5,11 @@ const express = require("express");
 const router = express.Router();
 
 //controller로 만든 메서드 불러오기
-const ctrl = require("./home.controller");
+const ctrl = require("./homeCtrl");
 
-router.get("/", ctrl.home);
-router.get("/login", ctrl.login );
+router.get("/", ctrl.output.home);
+router.get("/login", ctrl.output.login );
+router.post("/login", ctrl.process.login);
 
 // 외부에서 받아올 수 있도록 모듈화
 module.exports = router;

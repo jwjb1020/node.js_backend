@@ -1,14 +1,17 @@
 "use strict";
 
+const {response} =require("express");
 const UserStorage = require("./UserStorage");
 
 class User{
     constructor(body){
         this.body =body;
     }
-    login(){
+    //async가 있는 곳에만 await를 사용가능
+    async login(){
         const client = this.body;
-        const { id, password} = UserStorage.getUserInfo(client.id);
+        //promise를 반환하는 곳에 await를 쓸 수 있음
+        const { id, password} = await UserStorage.getUserInfo(client.id);
 
         if (id){
             if (id===client.id && password === client.password){

@@ -9,15 +9,18 @@ const id = document.querySelector("#id"),
 registerBtn.addEventListener("click", register);
 
 function register(){
+    if (!id.value) return alert("please input id")
+    //비밀번호 일치 확인 코드
+    if(password.value !== confirmPassword.value){
+        return alert("password not same")
+    }
+
     const req = {
         id : id.value,
         name : name.value,
         password : password.value,
-        confirmPassword : confirmPassword.value,
     };
-    console.log(req)
-
-    console.log(req, "1");
+   
     fetch("/register", {
         method: "POST",
         headers: {

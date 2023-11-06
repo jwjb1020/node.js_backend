@@ -1,5 +1,7 @@
 "use strict";
 
+const { throws } = require("assert");
+
 //파일 시스템 불러오기
 const fs = require("fs").promises;
 class UserStorage{
@@ -17,8 +19,10 @@ class UserStorage{
 
             return userInfo;
     };
-    static getUsers(...fields){
-        // const users = this.#users;
+
+    static #getUsers(data,isAll,fields){
+        const users = JSON.parse(data);
+        if (isAll) return users;
         const newUsers = fields.reduce((newUsers,field) =>{
             if (users.hasOwnProperty(field)) {
                 newUsers[field]= users[field];
@@ -26,7 +30,23 @@ class UserStorage{
             return newUsers;
         }, {});
         return newUsers;
+
+    }
+
+    static getUsers(isAll,...fields){
+        return fs
+        .readFile("./src/databases/user.json")
+        //성공했을 때 실행  
+        .then((data) => {
+            return this.#getUsers(data,isAll,fields);
+            
+        })
+        //실패했을때 실행
+        .catch((err)=>console.log(err));
+
+     
     };
+
     static getUserInfo(id){
         return fs
         .readFile("./src/databases/user.json")
@@ -42,11 +62,17 @@ class UserStorage{
     };
    
 
-    static save(userInfo){
-        // const users = this.#users;
+    static async save(userInfo){
+        const users = await this.getUsers(true);
+        if (users.id.includes(userInfo.id)){
+           throw "existed id"
+
+        }
         users.id.push(userInfo.id);
-        users.name.push(userInfo.name);
         users.password.push(userInfo.password);
+        users.name.push(userInfo.name);
+        //data 추가
+        fs.writeFile("./src/databases/user.json",JSON.stringify(users))
         return {success : true};
 
     };

@@ -29,7 +29,8 @@ function login(){
         }
     })
     .catch((err)=>{
-        console.error(err);
+    
+        console.error();
     })
     
 }

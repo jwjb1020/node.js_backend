@@ -33,11 +33,12 @@ function register(){
         if (res.success){
             location.href = "/login";
         } else {
-            alert(res.msg);
+            console.log(res)
+            alert(`${res.msg}`);
         }
     })
     .catch((err)=>{
-        console.error("sign up error");
+        console.error(err);
     })
     
 }

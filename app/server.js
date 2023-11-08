@@ -11,9 +11,10 @@ dotenv.config();
 //이전방식 현재는 express에 내장되어있음
 // const bodyParser = require("body-parser");
 
-
+//라우팅
 const home = require("./src/routes/home");
 const accessLogStream =require("./src/config/log")
+
 
 //앱 세팅
 app.set("views", "./src/views");

@@ -3,6 +3,8 @@
 
 // 모듈
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 //이전방식 현재는 express에 내장되어있음
 // const bodyParser = require("body-parser");

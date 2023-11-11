@@ -15,10 +15,10 @@ class User{
             
             console.log(client);
             //promise를 반환하는 곳에 await를 쓸 수 있음
-            const {id,password} = await UserStorage.getUserInfo(client.id,client.password);
+            const user = await UserStorage.getUserInfo(client.id,client.password);
             
-            if (id){
-                if (id === client.id && password === client.password){
+            if (user){
+                if (user.id === client.id && user.password === client.password){
                     return {success: true};
                 }
                 return { success :false, msg: "incorrect password"};
